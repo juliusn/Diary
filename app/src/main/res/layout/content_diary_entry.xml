@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/entry_title"
+                style="@style/DiaryTitle"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Title title title title title title title" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/entry_text"
+            style="@style/EntryText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/lorem_text" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/button_edit"
+                style="@style/ButtonRegular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_edit_white"
+                android:onClick="startEditActivity"
+                android:text="@string/action_edit" />
+
+            <Button
+                android:id="@+id/button_delete"
+                style="@style/ButtonRegular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_delete_white"
+                android:onClick="showDeleteDialog"
+                android:text="@string/action_delete" />
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>

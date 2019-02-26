@@ -1,3 +1,29 @@
 <resources>
     <string name="app_name">Diary</string>
+    <string name="title_edit">Edit</string>
+    <string name="title_activity_diary_entries">DiaryEntriesActivity</string>
+    <string name="title_activity_new_diary_entry">NewDiaryEntryActivity</string>
+    <string name="action_save">Save</string>
+    <string name="action_edit">Edit</string>
+    <string name="action_delete">Delete</string>
+    <string name="action_oldest_first">Oldest first</string>
+    <string name="action_newest_first">Newest first</string>
+    <string name="action_delete_all">Delete All</string>
+    <string name="action_cancel">Cancel</string>
+    <string name="button_reset">Reset</string>
+    <string name="hint_title">Title</string>
+    <string name="hint_description">Text</string>
+    <string name="warning_not_saved">Can\'t save a diary entry without content or title.</string>
+    <string name="info_entry_updated">Diary entry updated.</string>
+    <string name="info_entry_deleted">Diary entry deleted.</string>
+    <string name="title_activity_diary_entry">DiaryEntryActivity</string>
+    <string name="dialog_message_delete_entry">Delete entry?</string>
+    <string name="dialog_message_delete_all">Delete all entries?</string>
+    <string name="lorem_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer tincidunt, eros eu iaculis convallis, augue ipsum posuere mauris, vitae feugiat erat lorem sollicitudin lorem. Mauris egestas dolor vel ante egestas hendrerit. Phasellus blandit bibendum suscipit. Curabitur luctus mattis orci, vel auctor velit volutpat ac. Maecenas suscipit elit nec lacus malesuada tincidunt. Integer feugiat facilisis lacus, eu vestibulum risus elementum condimentum. Mauris blandit facilisis auctor. Phasellus sagittis leo et elementum mollis. Ut blandit ex vel nulla dapibus blandit. Integer ullamcorper neque at odio luctus viverra. Nam auctor, ex vel vehicula tempor, dolor risus porttitor augue, sed hendrerit urna libero et lectus. Donec facilisis imperdiet velit eu malesuada. Vivamus pulvinar erat et neque faucibus congue. Curabitur dignissim dignissim felis, ut dignissim velit laoreet sed.\n\n
+
+Quisque posuere pharetra consectetur. Nulla mollis tellus vitae ultricies laoreet. Aliquam luctus diam malesuada est sodales fringilla. Curabitur magna turpis, rutrum et nisi sit amet, volutpat varius nisl. Phasellus et risus justo. Nullam consequat sem at erat faucibus tincidunt. Aliquam quis dui ac erat congue rutrum. Aenean laoreet eros tristique tristique euismod. Vivamus neque lorem, consectetur eget sagittis nec, lobortis eu nibh. Nunc semper nunc eget massa hendrerit dictum vel sed nibh.\n\n
+
+Mauris vitae velit in eros semper vulputate. Duis eu venenatis tortor. Integer tristique massa sed leo lacinia porta. Donec tortor sem, congue at risus a, luctus condimentum quam. Nullam arcu arcu, elementum lacinia mattis vel, semper quis erat. Nulla laoreet placerat aliquet. Curabitur non facilisis est. Proin et dui ligula. Integer leo tortor, facilisis ac elementum ut, placerat sit amet ex. Nunc a lectus sapien. Curabitur aliquet cursus mi a placerat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam commodo non quam tincidunt posuere. Sed vel mollis lectus, a fringilla felis. Nam aliquam neque at facilisis suscipit. Donec venenatis blandit magna vitae congue.</string>
+    <string name="lorem_title">Donec vulputate, metus vel blandit aliquam, dolor nisl suscipit dolor</string>
+    <string name="lorem_date">00/00/00</string>
 </resources>

@@ -1,0 +1,76 @@
+package com.juliusniiniranta.diary;
+
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
+import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
+
+import java.util.Date;
+
+@Entity(tableName = "diary_entry")
+public class DiaryEntry {
+
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo
+    private long id;
+
+    @NonNull
+    @ColumnInfo
+    private String title;
+
+    @NonNull
+    @ColumnInfo
+    private String description;
+
+    @NonNull
+    @ColumnInfo
+    private Date date;
+
+    public DiaryEntry(@NonNull String title, @NonNull String description) {
+        this.title = title;
+        this.description = description;
+        this.date = new Date();
+    }
+
+    @Ignore
+    public DiaryEntry(long id, String title, String description) {
+        this(title, description);
+        this.id = id;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    @NonNull
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(@NonNull String title) {
+        this.title = title;
+    }
+
+    @NonNull
+    String getDescription() {
+        return description;
+    }
+
+    void setDescription(@NonNull String description) {
+        this.description = description;
+    }
+
+    @NonNull
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(@NonNull Date date) {
+        this.date = date;
+    }
+}
