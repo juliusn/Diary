@@ -56,7 +56,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:enabled="false"
-                android:onClick="setViews"
+                android:onClick="resetViews"
                 android:text="@string/button_reset"
                 android:visibility="gone" />
 

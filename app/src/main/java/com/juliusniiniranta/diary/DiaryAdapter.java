@@ -1,9 +1,12 @@
 package com.juliusniiniranta.diary;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -17,8 +20,11 @@ public class DiaryAdapter extends RecyclerView.Adapter<DiaryAdapter.DiaryViewHol
 
     private final LayoutInflater inflater;
     private List<DiaryEntry> entries;
-    DiaryAdapter(Context context) {
-        inflater = LayoutInflater.from(context);
+    private Activity origin;
+
+    DiaryAdapter(Activity activity) {
+        this.origin = activity;
+        inflater = LayoutInflater.from(activity);
     }
 
     @Override
@@ -36,6 +42,7 @@ public class DiaryAdapter extends RecyclerView.Adapter<DiaryAdapter.DiaryViewHol
             holder.entryDate.setText(date);
             holder.entryTitle.setText(entry.getTitle());
             holder.entryText.setText(entry.getDescription());
+            holder.id = entry.getId();
         }
     }
 
@@ -52,16 +59,18 @@ public class DiaryAdapter extends RecyclerView.Adapter<DiaryAdapter.DiaryViewHol
         notifyDataSetChanged();
     }
 
-    class DiaryViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    class DiaryViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnCreateContextMenuListener {
         private final TextView entryDate;
         private final TextView entryTitle;
         private final TextView entryText;
+        private long id;
 
         DiaryViewHolder(View itemView) {
             super(itemView);
             this.entryDate = itemView.findViewById(R.id.preview_entry_date);
             this.entryTitle = itemView.findViewById(R.id.preview_entry_title);
             this.entryText = itemView.findViewById(R.id.preview_entry_text);
+            itemView.setOnCreateContextMenuListener(this);
             itemView.setOnClickListener(this);
         }
 
@@ -69,9 +78,22 @@ public class DiaryAdapter extends RecyclerView.Adapter<DiaryAdapter.DiaryViewHol
         public void onClick(View view) {
             Context context = view.getContext();
             Intent intent = new Intent(context, DiaryEntryActivity.class);
-            DiaryEntry entry = entries.get(getAdapterPosition());
-            intent.putExtra(EXTRA_ENTRY_ID, entry.getId());
+            intent.putExtra(EXTRA_ENTRY_ID, id);
             context.startActivity(intent);
+        }
+
+        @Override
+        public void onCreateContextMenu(ContextMenu contextMenu, final View view, ContextMenu.ContextMenuInfo contextMenuInfo) {
+            MenuItem edit = contextMenu.add(0, view.getId(), 0, R.string.action_edit);
+            edit.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem menuItem) {
+                    Intent intent = new Intent(origin, EditDiaryEntryActivity.class);
+                    intent.putExtra(EXTRA_ENTRY_ID, id);
+                    origin.startActivityForResult(intent, Constants.EDIT_DIARY_ENTRY_REQUEST_CODE);
+                    return true;
+                }
+            });
         }
     }
 }

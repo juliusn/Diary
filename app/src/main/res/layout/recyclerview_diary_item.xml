@@ -25,6 +25,7 @@
             android:ellipsize="end"
             android:singleLine="true"
             android:text="@string/lorem_title" />
+
     </LinearLayout>
 
     <TextView

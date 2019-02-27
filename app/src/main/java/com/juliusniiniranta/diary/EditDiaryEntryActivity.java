@@ -16,10 +16,7 @@ import android.widget.Toast;
 import java.text.DateFormat;
 import java.util.Date;
 
-import static com.juliusniiniranta.diary.Constants.EXTRA_ENTRY_DATE;
-import static com.juliusniiniranta.diary.Constants.EXTRA_ENTRY_DESCRIPTION;
 import static com.juliusniiniranta.diary.Constants.EXTRA_ENTRY_ID;
-import static com.juliusniiniranta.diary.Constants.EXTRA_ENTRY_TITLE;
 import static java.text.DateFormat.SHORT;
 
 public class EditDiaryEntryActivity extends AppCompatActivity {
@@ -57,7 +54,7 @@ public class EditDiaryEntryActivity extends AppCompatActivity {
                 @Override
                 public void onChanged(@Nullable DiaryEntry diaryEntry) {
                     entry = diaryEntry;
-                    setViews(null);
+                    resetViews(null);
                 }
             });
         } else {
@@ -72,10 +69,12 @@ public class EditDiaryEntryActivity extends AppCompatActivity {
         finish();
     }
 
-    public void setViews(View view) {
+    public void resetViews(View view) {
         if (entry == null) {
             resetButton.setEnabled(false);
             resetButton.setVisibility(View.GONE);
+            editTitleView.setText("");
+            editDescriptionView.setText("");
             return;
         }
         resetButton.setEnabled(true);
@@ -86,7 +85,6 @@ public class EditDiaryEntryActivity extends AppCompatActivity {
     }
 
     public void save(View view) {
-        Intent replyIntent = new Intent();
         if (TextUtils.isEmpty(editTitleView.getText()) ||
                 TextUtils.isEmpty(editDescriptionView.getText())) {
             Toast.makeText(getApplicationContext(),
@@ -95,11 +93,16 @@ public class EditDiaryEntryActivity extends AppCompatActivity {
         } else {
             String title = editTitleView.getText().toString();
             String description = editDescriptionView.getText().toString();
-            extras.putString(EXTRA_ENTRY_TITLE, formatTitle(title));
-            extras.putString(EXTRA_ENTRY_DESCRIPTION, formatDescription(description));
-            extras.putSerializable(EXTRA_ENTRY_DATE, date);
-            replyIntent.putExtras(extras);
-            setResult(RESULT_OK, replyIntent);
+            AppViewModel viewModel = ViewModelProviders.of(this).get(AppViewModel.class);
+            if (entry == null) {
+                entry = new DiaryEntry(title, description, date);
+                viewModel.insert(entry);
+            } else {
+                entry.setTitle(formatTitle(title));
+                entry.setDescription(formatDescription(description));
+                viewModel.update(entry);
+            }
+            setResult(RESULT_OK, new Intent());
             finish();
         }
     }

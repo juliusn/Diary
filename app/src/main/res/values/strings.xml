@@ -15,6 +15,7 @@
     <string name="hint_description">Text</string>
     <string name="warning_not_saved">Can\'t save a diary entry without content or title.</string>
     <string name="info_entry_updated">Diary entry updated.</string>
+    <string name="info_entry_created">Diary entry created..</string>
     <string name="info_entry_deleted">Diary entry deleted.</string>
     <string name="title_activity_diary_entry">DiaryEntryActivity</string>
     <string name="dialog_message_delete_entry">Delete entry?</string>

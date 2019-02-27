@@ -15,13 +15,10 @@ import android.widget.Toast;
 import java.text.DateFormat;
 
 import static com.juliusniiniranta.diary.Constants.DELETE_ENTRY_DIALOG_FRAGMENT;
-import static com.juliusniiniranta.diary.Constants.EXTRA_ENTRY_DESCRIPTION;
 import static com.juliusniiniranta.diary.Constants.EXTRA_ENTRY_ID;
-import static com.juliusniiniranta.diary.Constants.EXTRA_ENTRY_TITLE;
 
 public class DiaryEntryActivity extends AppCompatActivity implements DeleteEntryDialogFragment.DeleteEntryDialogListener {
 
-    private static final int EDIT_DIARY_ENTRY_REQUEST_CODE = 1;
     private AppViewModel viewModel;
     private TextView entryTitle;
     private TextView entryText;
@@ -64,7 +61,7 @@ public class DiaryEntryActivity extends AppCompatActivity implements DeleteEntry
     public void startEditActivity(View view) {
         Intent intent = new Intent(DiaryEntryActivity.this, EditDiaryEntryActivity.class);
         intent.putExtra(EXTRA_ENTRY_ID, entry.getId());
-        startActivityForResult(intent, EDIT_DIARY_ENTRY_REQUEST_CODE);
+        startActivityForResult(intent, Constants.EDIT_DIARY_ENTRY_REQUEST_CODE);
     }
 
     public void showDeleteDialog(View view) {
@@ -82,13 +79,7 @@ public class DiaryEntryActivity extends AppCompatActivity implements DeleteEntry
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == EDIT_DIARY_ENTRY_REQUEST_CODE && resultCode == RESULT_OK) {
-            Bundle extras = data.getExtras();
-            String title = extras.getString(EXTRA_ENTRY_TITLE);
-            String description = extras.getString(EXTRA_ENTRY_DESCRIPTION);
-            entry.setTitle(title);
-            entry.setDescription(description);
-            viewModel.update(entry);
+        if (requestCode == Constants.EDIT_DIARY_ENTRY_REQUEST_CODE && resultCode == RESULT_OK) {
             Toast.makeText(getApplicationContext(),
                     R.string.info_entry_updated,
                     Toast.LENGTH_SHORT).show();

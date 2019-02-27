@@ -2,7 +2,6 @@ package com.juliusniiniranta.diary;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
-import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
@@ -27,16 +26,10 @@ public class DiaryEntry {
     @ColumnInfo
     private Date date;
 
-    public DiaryEntry(@NonNull String title, @NonNull String description) {
+    public DiaryEntry(@NonNull String title, @NonNull String description, @NonNull Date date) {
         this.title = title;
         this.description = description;
-        this.date = new Date();
-    }
-
-    @Ignore
-    public DiaryEntry(long id, String title, String description) {
-        this(title, description);
-        this.id = id;
+        this.date = date;
     }
 
     public long getId() {

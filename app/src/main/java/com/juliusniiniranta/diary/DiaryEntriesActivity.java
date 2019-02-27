@@ -15,18 +15,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
-import java.util.Date;
 import java.util.List;
 
 import static com.juliusniiniranta.diary.Constants.DELETE_ALL_DIALOG_FRAGMENT;
-import static com.juliusniiniranta.diary.Constants.EXTRA_ENTRY_DATE;
-import static com.juliusniiniranta.diary.Constants.EXTRA_ENTRY_DESCRIPTION;
-import static com.juliusniiniranta.diary.Constants.EXTRA_ENTRY_TITLE;
 
 public class DiaryEntriesActivity extends AppCompatActivity implements DeleteAllDialogFragment.DeleteAllDialogListener {
 
-    private static final int NEW_DIARY_ENTRY_REQUEST_CODE = 1;
     private AppViewModel viewModel;
     private DiaryAdapter adapter;
     private RecyclerView entriesView;
@@ -38,7 +34,13 @@ public class DiaryEntriesActivity extends AppCompatActivity implements DeleteAll
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         entriesView = findViewById(R.id.recyclerview_diary_entries);
-        adapter = new DiaryAdapter(this);
+        registerForContextMenu(entriesView);
+        adapter = new DiaryAdapter(this) {
+            @Override
+            public void onBindViewHolder(DiaryViewHolder holder, int position) {
+                super.onBindViewHolder(holder, position);
+            }
+        };
         entriesView.setAdapter(adapter);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         entriesView.setLayoutManager(layoutManager);
@@ -55,7 +57,7 @@ public class DiaryEntriesActivity extends AppCompatActivity implements DeleteAll
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(DiaryEntriesActivity.this, EditDiaryEntryActivity.class);
-                startActivityForResult(intent, NEW_DIARY_ENTRY_REQUEST_CODE);
+                startActivityForResult(intent, Constants.NEW_DIARY_ENTRY_REQUEST_CODE);
             }
         });
     }
@@ -119,14 +121,14 @@ public class DiaryEntriesActivity extends AppCompatActivity implements DeleteAll
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == NEW_DIARY_ENTRY_REQUEST_CODE && resultCode == RESULT_OK) {
-            Bundle extras = data.getExtras();
-            String title = extras.getString(EXTRA_ENTRY_TITLE);
-            String description = extras.getString(EXTRA_ENTRY_DESCRIPTION);
-            Date date = (Date) extras.getSerializable(EXTRA_ENTRY_DATE);
-            DiaryEntry diaryEntry = new DiaryEntry(title, description);
-            diaryEntry.setDate(date);
-            viewModel.insert(diaryEntry);
+        if (requestCode == Constants.NEW_DIARY_ENTRY_REQUEST_CODE && resultCode == RESULT_OK) {
+            Toast.makeText(getApplicationContext(),
+                    R.string.info_entry_created,
+                    Toast.LENGTH_SHORT).show();
+        } else if (requestCode == Constants.EDIT_DIARY_ENTRY_REQUEST_CODE && resultCode == RESULT_OK) {
+            Toast.makeText(getApplicationContext(),
+                    R.string.info_entry_updated,
+                    Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -140,4 +142,8 @@ public class DiaryEntriesActivity extends AppCompatActivity implements DeleteAll
         fragment.show(getFragmentManager(), DELETE_ALL_DIALOG_FRAGMENT);
     }
 
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        return super.onContextItemSelected(item);
+    }
 }
