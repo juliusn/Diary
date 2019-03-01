@@ -1,4 +1,4 @@
-package com.juliusniiniranta.diary;
+package com.juliusniiniranta.diary.activities;
 
 import android.app.Activity;
 import android.app.DialogFragment;
@@ -13,13 +13,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.juliusniiniranta.diary.R;
+import com.juliusniiniranta.diary.fragments.DeleteEntryDialogFragment;
+import com.juliusniiniranta.diary.persistence.DiaryEntry;
+
 import java.text.DateFormat;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import static com.juliusniiniranta.diary.Constants.DELETE_ENTRY_DIALOG_FRAGMENT;
-import static com.juliusniiniranta.diary.Constants.EXTRA_ENTRY_ID;
+import static com.juliusniiniranta.diary.activities.Constants.DELETE_ENTRY_DIALOG_FRAGMENT;
+import static com.juliusniiniranta.diary.activities.Constants.EXTRA_ENTRY_ID;
 
 public class DiaryAdapter extends RecyclerView.Adapter<DiaryAdapter.DiaryViewHolder> {
 

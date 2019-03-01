@@ -1,4 +1,4 @@
-package com.juliusniiniranta.diary;
+package com.juliusniiniranta.diary.activities;
 
 import android.app.DialogFragment;
 import android.arch.lifecycle.Observer;
@@ -12,10 +12,15 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.juliusniiniranta.diary.R;
+import com.juliusniiniranta.diary.fragments.DeleteEntryDialogFragment;
+import com.juliusniiniranta.diary.persistence.AppViewModel;
+import com.juliusniiniranta.diary.persistence.DiaryEntry;
+
 import java.text.DateFormat;
 
-import static com.juliusniiniranta.diary.Constants.DELETE_ENTRY_DIALOG_FRAGMENT;
-import static com.juliusniiniranta.diary.Constants.EXTRA_ENTRY_ID;
+import static com.juliusniiniranta.diary.activities.Constants.DELETE_ENTRY_DIALOG_FRAGMENT;
+import static com.juliusniiniranta.diary.activities.Constants.EXTRA_ENTRY_ID;
 
 public class DiaryEntryActivity extends AppCompatActivity implements DeleteEntryDialogFragment.DeleteEntryDialogListener {
 

@@ -1,4 +1,4 @@
-package com.juliusniiniranta.diary;
+package com.juliusniiniranta.diary.activities;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
@@ -13,10 +13,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.juliusniiniranta.diary.R;
+import com.juliusniiniranta.diary.persistence.AppViewModel;
+import com.juliusniiniranta.diary.persistence.DiaryEntry;
+
 import java.text.DateFormat;
 import java.util.Date;
 
-import static com.juliusniiniranta.diary.Constants.EXTRA_ENTRY_ID;
 import static java.text.DateFormat.SHORT;
 
 public class EditDiaryEntryActivity extends AppCompatActivity {
@@ -49,7 +52,7 @@ public class EditDiaryEntryActivity extends AppCompatActivity {
         resetButton = findViewById(R.id.button_reset);
         long id = getIntent().getLongExtra(Constants.EXTRA_ENTRY_ID, -1);
         if (id > -1) {
-            extras.putLong(EXTRA_ENTRY_ID, id);
+            extras.putLong(Constants.EXTRA_ENTRY_ID, id);
             viewModel.getDiaryEntry(id).observe(this, new Observer<DiaryEntry>() {
                 @Override
                 public void onChanged(@Nullable DiaryEntry diaryEntry) {

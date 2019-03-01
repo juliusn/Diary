@@ -1,4 +1,4 @@
-package com.juliusniiniranta.diary;
+package com.juliusniiniranta.diary.fragments;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -6,6 +6,8 @@ import android.app.DialogFragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+
+import com.juliusniiniranta.diary.R;
 
 public class DeleteAllDialogFragment extends DialogFragment {
 

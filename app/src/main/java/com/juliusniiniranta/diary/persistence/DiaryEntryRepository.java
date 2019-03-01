@@ -1,4 +1,4 @@
-package com.juliusniiniranta.diary;
+package com.juliusniiniranta.diary.persistence;
 
 import android.app.Application;
 import android.arch.lifecycle.LiveData;

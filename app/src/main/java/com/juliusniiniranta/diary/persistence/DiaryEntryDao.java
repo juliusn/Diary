@@ -1,4 +1,4 @@
-package com.juliusniiniranta.diary;
+package com.juliusniiniranta.diary.persistence;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;

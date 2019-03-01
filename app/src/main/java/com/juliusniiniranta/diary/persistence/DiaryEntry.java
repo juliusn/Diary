@@ -1,4 +1,4 @@
-package com.juliusniiniranta.diary;
+package com.juliusniiniranta.diary.persistence;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
@@ -50,11 +50,11 @@ public class DiaryEntry {
     }
 
     @NonNull
-    String getDescription() {
+    public String getDescription() {
         return description;
     }
 
-    void setDescription(@NonNull String description) {
+    public void setDescription(@NonNull String description) {
         this.description = description;
     }
 

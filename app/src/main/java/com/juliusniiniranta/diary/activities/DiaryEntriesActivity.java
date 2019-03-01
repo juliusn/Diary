@@ -1,4 +1,4 @@
-package com.juliusniiniranta.diary;
+package com.juliusniiniranta.diary.activities;
 
 import android.app.DialogFragment;
 import android.arch.lifecycle.Observer;
@@ -17,17 +17,21 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import com.juliusniiniranta.diary.Constants.EntryOrder;
+import com.juliusniiniranta.diary.R;
+import com.juliusniiniranta.diary.activities.Constants.EntryOrder;
+import com.juliusniiniranta.diary.fragments.DeleteAllDialogFragment;
+import com.juliusniiniranta.diary.fragments.DeleteEntryDialogFragment;
+import com.juliusniiniranta.diary.persistence.AppViewModel;
+import com.juliusniiniranta.diary.persistence.DiaryEntry;
 
 import java.util.List;
 
-import static com.juliusniiniranta.diary.Constants.DELETE_ALL_DIALOG_FRAGMENT;
+import static com.juliusniiniranta.diary.activities.Constants.DELETE_ALL_DIALOG_FRAGMENT;
 
 public class DiaryEntriesActivity extends AppCompatActivity implements DeleteAllDialogFragment.DeleteAllDialogListener, DeleteEntryDialogFragment.DeleteEntryDialogListener {
 
     private AppViewModel viewModel;
     private DiaryAdapter adapter;
-    private RecyclerView entriesView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +39,7 @@ public class DiaryEntriesActivity extends AppCompatActivity implements DeleteAll
         setContentView(R.layout.activity_diary_entries);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        entriesView = findViewById(R.id.recyclerview_diary_entries);
+        RecyclerView entriesView = findViewById(R.id.recyclerview_diary_entries);
         registerForContextMenu(entriesView);
         adapter = new DiaryAdapter(this);
         entriesView.setAdapter(adapter);

@@ -1,4 +1,4 @@
-package com.juliusniiniranta.diary;
+package com.juliusniiniranta.diary.activities;
 
 class Constants {
     static final String EXTRA_ENTRY_ID = "EXTRA_ENTRY_ID";

@@ -1,4 +1,4 @@
-package com.juliusniiniranta.diary;
+package com.juliusniiniranta.diary.persistence;
 
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
@@ -18,31 +18,31 @@ public class AppViewModel extends AndroidViewModel {
         diaryEntries = repository.getDiaryEntries();
     }
 
-    LiveData<List<DiaryEntry>> getDiaryEntries() {
+    public LiveData<List<DiaryEntry>> getDiaryEntries() {
         return diaryEntries;
     }
 
-    LiveData<DiaryEntry> getDiaryEntry(long id) {
+    public LiveData<DiaryEntry> getDiaryEntry(long id) {
         return repository.getDiaryEntry(id);
     }
 
-    void insert(DiaryEntry entry) {
+    public void insert(DiaryEntry entry) {
         repository.insert(entry);
     }
 
-    void delete(DiaryEntry entry) {
+    public void delete(DiaryEntry entry) {
         repository.delete(entry);
     }
 
-    void delete(long id) {
+    public void delete(long id) {
         repository.delete(id);
     }
 
-    void update(DiaryEntry entry) {
+    public void update(DiaryEntry entry) {
         repository.update(entry);
     }
 
-    void deleteAll() {
+    public void deleteAll() {
         repository.deleteAll();
     }
 }
