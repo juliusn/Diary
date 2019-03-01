@@ -17,11 +17,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.juliusniiniranta.diary.Constants.EntryOrder;
+
 import java.util.List;
 
 import static com.juliusniiniranta.diary.Constants.DELETE_ALL_DIALOG_FRAGMENT;
 
-public class DiaryEntriesActivity extends AppCompatActivity implements DeleteAllDialogFragment.DeleteAllDialogListener {
+public class DiaryEntriesActivity extends AppCompatActivity implements DeleteAllDialogFragment.DeleteAllDialogListener, DeleteEntryDialogFragment.DeleteEntryDialogListener {
 
     private AppViewModel viewModel;
     private DiaryAdapter adapter;
@@ -35,12 +37,7 @@ public class DiaryEntriesActivity extends AppCompatActivity implements DeleteAll
         setSupportActionBar(toolbar);
         entriesView = findViewById(R.id.recyclerview_diary_entries);
         registerForContextMenu(entriesView);
-        adapter = new DiaryAdapter(this) {
-            @Override
-            public void onBindViewHolder(DiaryViewHolder holder, int position) {
-                super.onBindViewHolder(holder, position);
-            }
-        };
+        adapter = new DiaryAdapter(this);
         entriesView.setAdapter(adapter);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         entriesView.setLayoutManager(layoutManager);
@@ -66,13 +63,19 @@ public class DiaryEntriesActivity extends AppCompatActivity implements DeleteAll
     public boolean onCreateOptionsMenu(final Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         SharedPreferences preferences = getPreferences(MODE_PRIVATE);
-        boolean newestFirst = preferences.getBoolean(getString(R.string.pref_entries_newest_first), true);
-        if (newestFirst) {
-            menu.findItem(R.id.action_newest_first).setChecked(true);
-        } else {
-            menu.findItem(R.id.action_oldest_first).setChecked(true);
+        int order = preferences.getInt(getString(R.string.pref_entries_order), 0);
+        switch (order) {
+            case EntryOrder.NEWEST_FIRST:
+                menu.findItem(R.id.action_newest_first).setChecked(true);
+                break;
+            case EntryOrder.OLDEST_FIRST:
+                menu.findItem(R.id.action_oldest_first).setChecked(true);
+                break;
+            case EntryOrder.ALPHABETICALLY:
+                menu.findItem(R.id.action_alphabetically).setChecked(true);
+                break;
         }
-        updateLayout(newestFirst);
+        adapter.setOrder(order);
         viewModel.getDiaryEntries().observe(this, new Observer<List<DiaryEntry>>() {
             @Override
             public void onChanged(@Nullable List<DiaryEntry> diaryEntries) {
@@ -86,16 +89,19 @@ public class DiaryEntriesActivity extends AppCompatActivity implements DeleteAll
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_newest_first:
-                if (item.isChecked()) return true;
+                saveOrderPreference(EntryOrder.NEWEST_FIRST);
+                adapter.setOrder(EntryOrder.NEWEST_FIRST);
                 item.setChecked(true);
-                saveDirectionPreference(true);
-                updateLayout(true);
                 return true;
             case R.id.action_oldest_first:
-                if (item.isChecked()) return true;
+                saveOrderPreference(EntryOrder.OLDEST_FIRST);
+                adapter.setOrder(EntryOrder.OLDEST_FIRST);
                 item.setChecked(true);
-                saveDirectionPreference(false);
-                updateLayout(false);
+                return true;
+            case R.id.action_alphabetically:
+                saveOrderPreference(EntryOrder.ALPHABETICALLY);
+                adapter.setOrder(EntryOrder.ALPHABETICALLY);
+                item.setChecked(true);
                 return true;
             case R.id.action_delete_all:
                 showDeleteAllDialog(null);
@@ -105,17 +111,11 @@ public class DiaryEntriesActivity extends AppCompatActivity implements DeleteAll
         }
     }
 
-    private void saveDirectionPreference(boolean newestFirst) {
+    private void saveOrderPreference(int order) {
         SharedPreferences preferences = getPreferences(MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
-        editor.putBoolean(getString(R.string.pref_entries_newest_first), newestFirst);
+        editor.putInt(getString(R.string.pref_entries_order), order);
         editor.apply();
-    }
-
-    private void updateLayout(boolean newestFirst) {
-        LinearLayoutManager layoutManager = (LinearLayoutManager) entriesView.getLayoutManager();
-        layoutManager.setReverseLayout(!newestFirst);
-        layoutManager.setStackFromEnd(!newestFirst);
     }
 
     @Override
@@ -145,5 +145,14 @@ public class DiaryEntriesActivity extends AppCompatActivity implements DeleteAll
     @Override
     public boolean onContextItemSelected(MenuItem item) {
         return super.onContextItemSelected(item);
+    }
+
+    @Override
+    public void onDeleteEntryPositiveClick(DialogFragment fragment) {
+        long id = fragment.getArguments().getLong(Constants.EXTRA_ENTRY_ID);
+        viewModel.delete(id);
+        Toast.makeText(getApplicationContext(),
+                R.string.info_entry_deleted,
+                Toast.LENGTH_SHORT).show();
     }
 }

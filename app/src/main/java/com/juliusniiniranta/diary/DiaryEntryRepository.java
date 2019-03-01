@@ -33,6 +33,10 @@ class DiaryEntryRepository {
         new deleteAsyncTask(diaryEntryDao).execute(entries);
     }
 
+    void delete(long id) {
+        new deleteByIdAsyncTask(diaryEntryDao).execute(id);
+    }
+
     void update(DiaryEntry... entries) {
         new updateAsyncTask(diaryEntryDao).execute(entries);
     }
@@ -93,6 +97,20 @@ class DiaryEntryRepository {
         @Override
         protected Void doInBackground(Void... voids) {
             asyncTaskDao.deleteAll();
+            return null;
+        }
+    }
+
+    private static class deleteByIdAsyncTask extends AsyncTask<Long, Void, Void> {
+        private DiaryEntryDao asyncTaskDao;
+
+        deleteByIdAsyncTask(DiaryEntryDao dao) {
+            asyncTaskDao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(Long... id) {
+            asyncTaskDao.delete(id[0]);
             return null;
         }
     }

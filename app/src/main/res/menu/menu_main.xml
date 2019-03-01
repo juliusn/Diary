@@ -3,20 +3,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".DiaryEntriesActivity">
 
-    <group android:checkableBehavior="single">
+    <group
+        android:id="@+id/group_order"
+        android:checkableBehavior="single">
+        <item
+            android:checkable="false"
+            android:enabled="false"
+            android:title="@string/title_order_by" />
         <item
             android:id="@+id/action_newest_first"
-            android:orderInCategory="1"
-            android:title="@string/action_newest_first"/>
+            android:title="@string/action_newest_first" />
         <item
             android:id="@+id/action_oldest_first"
-            android:orderInCategory="2"
-            android:title="@string/action_oldest_first"/>
+            android:title="@string/action_oldest_first" />
+        <item
+            android:id="@+id/action_alphabetically"
+            android:title="@string/action_alphabetically" />
     </group>
-    <item
-        android:id="@+id/action_delete_all"
-        android:enabled="false"
-        android:orderInCategory="3"
-        android:title="@string/action_delete_all"/>
-
+    <group android:id="@+id/group_delete">
+        <item
+            android:id="@+id/action_delete_all"
+            android:enabled="false"
+            android:title="@string/action_delete_all" />
+    </group>
 </menu>

@@ -17,6 +17,9 @@ public interface DiaryEntryDao {
     @Query("SELECT * FROM diary_entry WHERE id = :id")
     LiveData<DiaryEntry> getSingle(long id);
 
+    @Query("DELETE FROM diary_entry WHERE id = :id")
+    void delete(long... id);
+
     @Insert
     void insert(DiaryEntry... entries);
 

@@ -7,6 +7,6 @@
     <color name="diaryItemTitle">#FFFFFF</color>
     <color name="diaryItemTitleFaded">#6FFFFFFF</color>
     <color name="diaryItemTitleBackground">#29B6F6</color>
-    <color name="diaryViewBackground">#FFFFFF</color>
+    <color name="diaryViewBackground">#00FFFFFF</color>
     <color name="buttonLabel">#FFFFFF</color>
 </resources>

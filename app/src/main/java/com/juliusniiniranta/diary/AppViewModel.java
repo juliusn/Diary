@@ -34,6 +34,10 @@ public class AppViewModel extends AndroidViewModel {
         repository.delete(entry);
     }
 
+    void delete(long id) {
+        repository.delete(id);
+    }
+
     void update(DiaryEntry entry) {
         repository.update(entry);
     }
